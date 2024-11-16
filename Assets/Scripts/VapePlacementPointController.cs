@@ -1,5 +1,6 @@
 using System.IO.IsolatedStorage;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class VapePlacementPointController : MonoBehaviour
 {

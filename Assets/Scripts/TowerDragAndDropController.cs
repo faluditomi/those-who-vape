@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -7,6 +8,8 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
     private LayerMask groundLayer;
     private InventoryManager inventoryManager;
     private VapeController.VapeType currentVapeType;
+    private static InputActions inputActions;
+    private bool isRemoveHeld = false;
     public GameObject vapePrefab;
 
     private void Awake()
@@ -17,6 +20,15 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
         {
             currentVapeType = vapePrefab.GetComponent<VapeController>().GetVapeType();
         }
+        inputActions = new InputActions();
+    }
+
+    private void Start()
+    {
+        inputActions.Enable();
+        inputActions.Gameplay.RemoveTower.started += HoldRemoveButton;
+        inputActions.Gameplay.RemoveTower.canceled += HoldRemoveButton;
+        inputActions.Gameplay.Click.performed += RemoveVapeIfButtonHeld;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -53,6 +65,32 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
             }
             inventoryManager.ManipulateInventory(currentVapeType, 1);
             Destroy(draggingObject);
+        }
+    }
+
+    private void HoldRemoveButton(InputAction.CallbackContext context)
+    {
+        if(context.action.phase is InputActionPhase.Started)
+        {
+            isRemoveHeld = true;
+        }
+        else if(context.action.phase is InputActionPhase.Canceled)
+        {
+            isRemoveHeld = false;
+        }
+    }
+
+    private void RemoveVapeIfButtonHeld(InputAction.CallbackContext context)
+    {
+        if(isRemoveHeld && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit)
+        && hit.collider.CompareTag("VapeZone"))
+        {
+            VapePlacementPointController vapePlacementPointController = hit.collider.gameObject.GetComponent<VapePlacementPointController>();
+            if(vapePlacementPointController.IsOccupied())
+            {
+                vapePlacementPointController.RemoveVape();
+            }
+            
         }
     }
 }
