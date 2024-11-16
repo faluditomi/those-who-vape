@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     private List<Transform> waypoints = new List<Transform>();
     private bool isMassiveVapeReached = false;
     public float speed;
+    public int health = 200;
 
     private void Awake()
     {
@@ -48,5 +49,15 @@ public class EnemyController : MonoBehaviour
     {
         isMassiveVapeReached = true;
         gameManager.GameOver();
+    }
+
+    void OnParticleCollision(GameObject other)
+    {
+        health--;
+
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -13,20 +13,17 @@ public class VapeController : MonoBehaviour
 
     private GameObject[] enemies;
     private EnemyController currentTarget;
-    private Quaternion targetRotation;
     private Coroutine scanCoroutine;
+    protected Coroutine shootCoroutine;
     private int scanSpeed = 30;
     public float range = 10f;
+    public float shootFrequency = 2f;
+    public float shootDurations = 2f;
     public float turnSpeed = 100f;
     public Transform vapeTransform;
     public VapeType vapeType;
 
-    private void Start()
-    {
-        
-    }
-
-    private void FixedUpdate()
+    protected void FixedUpdate()
     {
         if(currentTarget == null || Vector3.Distance(transform.position, currentTarget.transform.position) > range)
         {
@@ -35,21 +32,45 @@ public class VapeController : MonoBehaviour
 
         if(currentTarget != null)
         {
-            if(scanCoroutine != null)
-            {
-                StopCoroutine(scanCoroutine);
-                scanCoroutine = null;
-            }
-
-            RotateTowards(currentTarget.transform.position);
+            Shoot();
         }
-        else if(scanCoroutine == null)
+        else
+        {
+            Scan();
+        }
+    }
+
+    protected virtual void Shoot()
+    {
+        if(scanCoroutine != null)
+        {
+            StopCoroutine(scanCoroutine);
+            scanCoroutine = null;
+        }
+
+        if(shootCoroutine == null)
+        {
+            shootCoroutine = StartCoroutine(ShootBehaviour());
+        }
+
+        RotateTowards(currentTarget.transform.position);
+    }
+
+    protected virtual void Scan()
+    {
+        if(shootCoroutine != null)
+        {
+            StopCoroutine(shootCoroutine);
+            shootCoroutine = null;
+        }
+
+        if(scanCoroutine == null)
         {
             scanCoroutine = StartCoroutine(ScanBehaviour());
         }
     }
 
-    private EnemyController GetClosestEnemy()
+    protected EnemyController GetClosestEnemy()
     {
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject enemy = enemies
@@ -67,7 +88,7 @@ public class VapeController : MonoBehaviour
         }
     }
 
-    private void RotateTowards(Vector3 targetPosition)
+    protected void RotateTowards(Vector3 targetPosition)
     {
         Vector3 directionToTarget = (targetPosition - vapeTransform.position).normalized;
         directionToTarget.y = 0;
@@ -87,7 +108,7 @@ public class VapeController : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmosSelected()
+    protected void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, range);
@@ -98,7 +119,12 @@ public class VapeController : MonoBehaviour
         return vapeType;
     }
 
-    private IEnumerator ScanBehaviour()
+    protected virtual IEnumerator ShootBehaviour()
+    {
+        yield return null;
+    }
+
+    protected IEnumerator ScanBehaviour()
     {
         float elapsedTime = 0f;
         float duration = Random.Range(0.8f, 3.2f);
