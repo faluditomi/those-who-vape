@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -12,10 +13,9 @@ public class VapeController : MonoBehaviour
 
     private GameObject[] enemies;
     private EnemyController currentTarget;
-    private float scanAngle;
-    private float scanDirection = 1f;
-    private float currentScanAngle = 0f;
     private Quaternion targetRotation;
+    private Coroutine scanCoroutine;
+    private int scanSpeed = 30;
     public float range = 10f;
     public float turnSpeed = 100f;
     public Transform vapeTransform;
@@ -23,7 +23,7 @@ public class VapeController : MonoBehaviour
 
     private void Start()
     {
-        GetNewScanAngle();
+        
     }
 
     private void FixedUpdate()
@@ -35,21 +35,25 @@ public class VapeController : MonoBehaviour
 
         if(currentTarget != null)
         {
+            if(scanCoroutine != null)
+            {
+                StopCoroutine(scanCoroutine);
+                scanCoroutine = null;
+            }
+
             RotateTowards(currentTarget.transform.position);
         }
-        else
+        else if(scanCoroutine == null)
         {
-            PerformSmoothScanningMotion();
+            scanCoroutine = StartCoroutine(ScanBehaviour());
         }
-
-        vapeTransform.rotation = Quaternion.Slerp(vapeTransform.rotation, targetRotation, turnSpeed * Time.fixedDeltaTime);
     }
 
     private EnemyController GetClosestEnemy()
     {
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject enemy = enemies
-            .Where(enemy => Vector3.Distance(transform.position, enemy.transform.position) <= range)
+            .Where(enemy => Vector3.Distance(transform.position, enemy.transform.position) <= range +- 1)
             .OrderBy(enemy => Vector3.Distance(transform.position, enemy.transform.position))
             .FirstOrDefault();
         
@@ -65,28 +69,22 @@ public class VapeController : MonoBehaviour
 
     private void RotateTowards(Vector3 targetPosition)
     {
-        Vector3 target = new Vector3(targetPosition.x, transform.position.y, targetPosition.z);
-        Vector3 direction = (target - vapeTransform.position).normalized;
-        targetRotation = Quaternion.LookRotation(direction);
-    }
+        Vector3 directionToTarget = (targetPosition - vapeTransform.position).normalized;
+        directionToTarget.y = 0;
+        float angleToTarget = Vector3.Angle(vapeTransform.forward, directionToTarget);
 
-    private void PerformSmoothScanningMotion()
-    {
-        currentScanAngle += scanDirection * turnSpeed * Time.fixedDeltaTime;
-
-        if (Mathf.Abs(currentScanAngle) > scanAngle)
+        if(angleToTarget < 5f)
         {
-            scanDirection *= -1f;
-            GetNewScanAngle();
+            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+            vapeTransform.rotation = Quaternion.Slerp(vapeTransform.rotation, targetRotation, turnSpeed * Time.fixedDeltaTime);
         }
-
-        Vector3 scanDirectionVector = Quaternion.Euler(0, currentScanAngle, 0) * Vector3.forward;
-        targetRotation = Quaternion.LookRotation(scanDirectionVector);
-    }
-
-    private void GetNewScanAngle()
-    {
-        scanAngle = currentScanAngle += Random.Range(15f, 90f);
+        else
+        {
+            Vector3 crossProduct = Vector3.Cross(vapeTransform.forward, directionToTarget);
+            float turnDirection = Mathf.Sign(crossProduct.y);
+            float rotationAmount = turnSpeed * Time.fixedDeltaTime * turnDirection;
+            vapeTransform.Rotate(0, rotationAmount, 0);
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -98,5 +96,23 @@ public class VapeController : MonoBehaviour
     public VapeType GetVapeType()
     {
         return vapeType;
+    }
+
+    private IEnumerator ScanBehaviour()
+    {
+        float elapsedTime = 0f;
+        float duration = Random.Range(0.8f, 3.2f);
+        scanSpeed *= -1;
+
+        while(elapsedTime < duration)
+        {
+            float rotationAmount = scanSpeed * Time.deltaTime;
+            vapeTransform.Rotate(0f, rotationAmount, 0f);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        scanCoroutine = StartCoroutine(ScanBehaviour());
     }
 }
