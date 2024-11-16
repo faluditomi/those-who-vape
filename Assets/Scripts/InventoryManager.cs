@@ -2,12 +2,22 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    private int numberOfMixedBerry = 0;
-    private int numberOfLushIce = 0;
-    private int numberOfHeisenberg = 0;
+    private UIController uiController;
+    private int numberOfMixedBerry = 3;
+    private int numberOfLushIce = 3;
+    private int numberOfHeisenberg = 3;
 
-    public void ManipulateInventory(VapeController.VapeType vapeType, int quantity)
+    private void Awake()
     {
+        uiController = GameObject.FindAnyObjectByType<UIController>();
+    }
+
+    public bool ManipulateInventory(VapeController.VapeType vapeType, int quantity)
+    {
+        if(GetNumberOfType(vapeType) + quantity < 0)
+        {
+            return false;
+        }
         switch(vapeType)
         {
             case VapeController.VapeType.MixedBerry:
@@ -22,6 +32,8 @@ public class InventoryManager : MonoBehaviour
                 numberOfHeisenberg += quantity;
                 break;
         }
+        uiController.ManipulateCounter(vapeType, GetNumberOfType(vapeType));
+        return true;
     }
 
     public int GetNumberOfType(VapeController.VapeType vapeType)

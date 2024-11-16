@@ -6,18 +6,27 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
     private GameObject draggingObject;
     private LayerMask groundLayer;
     private InventoryManager inventoryManager;
+    private VapeController.VapeType currentVapeType;
     public GameObject vapePrefab;
 
     private void Awake()
     {
         groundLayer = LayerMask.GetMask("Ground");
         inventoryManager = GameObject.FindAnyObjectByType<InventoryManager>();
+        if(vapePrefab)
+        {
+            currentVapeType = vapePrefab.GetComponent<VapeController>().GetVapeType();
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Vector3 spawnPoint = new Vector3(transform.position.x, 5, transform.position.z);
-        draggingObject = Instantiate(vapePrefab, spawnPoint, Quaternion.identity);
+        print(1);
+        if(inventoryManager.ManipulateInventory(currentVapeType, -1))
+        {
+            Vector3 spawnPoint = new Vector3(transform.position.x, 5, transform.position.z);
+            draggingObject = Instantiate(vapePrefab, spawnPoint, Quaternion.identity);
+        }
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -32,22 +41,20 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        print(2);
         if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
         {
             if(hit.collider.CompareTag("VapeZone"))
             {
-                VapeController.VapeType currentVapeType = draggingObject.GetComponent<VapeController>().GetVapeType();
-                hit.collider.gameObject.GetComponent<VapePlacementPointController>().PlaceVape(draggingObject);
-                if(inventoryManager.GetNumberOfType(currentVapeType) > 0)
+                VapePlacementPointController vapePlacementPointController = hit.collider.gameObject.GetComponent<VapePlacementPointController>();
+                if(!vapePlacementPointController.IsOccupied())
                 {
-                    inventoryManager.ManipulateInventory(currentVapeType, 1);
-                    //TODO: make ui controller and manipulate the counters
+                    vapePlacementPointController.PlaceVape(draggingObject);
+                    return;
                 }
             }
-            else
-            {
-                Destroy(draggingObject);
-            }
+            inventoryManager.ManipulateInventory(currentVapeType, 1);
+            Destroy(draggingObject);
         }
     }
 }

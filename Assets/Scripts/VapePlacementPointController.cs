@@ -1,3 +1,4 @@
+using System.IO.IsolatedStorage;
 using UnityEngine;
 
 public class VapePlacementPointController : MonoBehaviour
@@ -23,5 +24,10 @@ public class VapePlacementPointController : MonoBehaviour
             Destroy(vape);
             isOccupied = false;
         }
+    }
+
+    public bool IsOccupied()
+    {
+        return isOccupied;
     }
 }
