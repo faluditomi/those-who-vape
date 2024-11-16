@@ -24,15 +24,15 @@ public class UIController : MonoBehaviour
         switch(vapeType)
         {
             case VapeController.VapeType.MixedBerry:
-                mixedBerryCounter.text = "x " + (inventoryManager.GetNumberOfType(vapeType) + quantity);
+                mixedBerryCounter.text = "x " + quantity;
                 break;
 
             case VapeController.VapeType.LushIce:
-                lushIceCounter.text = "x " + (inventoryManager.GetNumberOfType(vapeType) + quantity);
+                lushIceCounter.text = "x " + quantity;
                 break;
 
             case VapeController.VapeType.Heisenberg:
-                heisenbergCounter.text = "x " + (inventoryManager.GetNumberOfType(vapeType) + quantity);
+                heisenbergCounter.text = "x " + quantity;
                 break;
         }
     }

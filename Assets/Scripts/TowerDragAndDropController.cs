@@ -21,7 +21,6 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        print(1);
         if(inventoryManager.ManipulateInventory(currentVapeType, -1))
         {
             Vector3 spawnPoint = new Vector3(transform.position.x, 5, transform.position.z);
@@ -41,7 +40,6 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        print(2);
         if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
         {
             if(hit.collider.CompareTag("VapeZone"))
