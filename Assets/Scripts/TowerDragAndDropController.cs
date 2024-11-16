@@ -16,11 +16,12 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
     {
         groundLayer = LayerMask.GetMask("Ground");
         inventoryManager = GameObject.FindAnyObjectByType<InventoryManager>();
+        inputActions = new InputActions();
+
         if(vapePrefab)
         {
             currentVapeType = vapePrefab.GetComponent<VapeController>().GetVapeType();
         }
-        inputActions = new InputActions();
     }
 
     private void Start()
@@ -42,7 +43,13 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
 
     public void OnDrag(PointerEventData eventData)
     {
+        if(draggingObject == null)
+        {
+            return;
+        }
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
         if(Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayer))
         {
             Vector3 newPosition = new Vector3(hit.point.x, 5, hit.point.z);
@@ -52,6 +59,11 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if(draggingObject == null)
+        {
+            return;
+        }
+
         if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
         {
             if(hit.collider.CompareTag("VapeZone"))
@@ -60,9 +72,11 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
                 if(!vapePlacementPointController.IsOccupied())
                 {
                     vapePlacementPointController.PlaceVape(draggingObject);
+                    draggingObject = null;
                     return;
                 }
             }
+
             inventoryManager.ManipulateInventory(currentVapeType, 1);
             Destroy(draggingObject);
         }

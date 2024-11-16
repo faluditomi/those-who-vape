@@ -6,6 +6,7 @@ TagManager:
   tags:
   - VapeZone
   - Ground
+  - EnemyWaypoint
   layers:
   - Default
   - TransparentFX

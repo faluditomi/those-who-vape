@@ -18,6 +18,7 @@ public class InventoryManager : MonoBehaviour
         {
             return false;
         }
+
         switch(vapeType)
         {
             case VapeController.VapeType.MixedBerry:
@@ -32,6 +33,7 @@ public class InventoryManager : MonoBehaviour
                 numberOfHeisenberg += quantity;
                 break;
         }
+        
         uiController.ManipulateCounter(vapeType, GetNumberOfType(vapeType));
         return true;
     }

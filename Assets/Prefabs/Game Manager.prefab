@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5453334001213912591}
   - component: {fileID: 5145550638846075145}
+  - component: {fileID: 6181190701757148076}
+  - component: {fileID: 3495361241915518385}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -44,3 +46,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e81e3e3fd29a49943a66cf4bcbfe685d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6181190701757148076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3836995136625433492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40d5a0865e28bc445886bcf532e1d1b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3495361241915518385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3836995136625433492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 596cadde9d296a648969b8966255bc1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 4954230213554727433, guid: d00afdb2aaf685b429e2fb14e813fbab, type: 3}
+  secondsToDifficultyIncrease: 30
+  spawnRateIncreasePercentage: 10
+  spawnRateRandomRange: 1
