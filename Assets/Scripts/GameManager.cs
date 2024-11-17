@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class GameManager : MonoBehaviour
     private UIController uiController;
     private SlotMachineController slotMachineController;
     private AudioManager audioManager;
+    private static InputActions inputActions;
+    private bool isPaused = false;
 
     private void Awake()
     {
@@ -18,6 +21,14 @@ public class GameManager : MonoBehaviour
         inventoryManager = GameObject.FindAnyObjectByType<InventoryManager>();
         uiController = GameObject.FindAnyObjectByType<UIController>();
         slotMachineController = GameObject.FindAnyObjectByType<SlotMachineController>();
+        inputActions = new InputActions();
+    }
+
+    private void Start()
+    {
+        inputActions.Enable();
+        inputActions.Gameplay.Restart.performed += RestartButton;
+        inputActions.Gameplay.Pause.performed += Pause;
     }
 
     public void GameOver() 
@@ -28,8 +39,30 @@ public class GameManager : MonoBehaviour
         uiController.SetPauseState(true);
     }
 
+    private void RestartButton(InputAction.CallbackContext context)
+    {
+        Restart();
+    }
+
+    private void PausePause()
+    {
+        uiController.SetPauseState(!uiController.GetPauseState());
+        isPaused = !isPaused;
+    }
+
+    private void Pause(InputAction.CallbackContext context)
+    {
+        PausePause();
+    }
+
     public void Restart()
     {
+        if(isPaused)
+        {
+            PausePause();
+            return;
+        }
+
         audioManager.canPlayNewSounds = false;
         isGameOver = false;
         enemySpawnManager1.Restart();

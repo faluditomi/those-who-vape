@@ -26,6 +26,11 @@ public class UIController : MonoBehaviour
         pauseState.SetActive(state);
     }
 
+    public bool GetPauseState()
+    {
+        return pauseState.activeInHierarchy;
+    }
+
     public void Restart()
     {
         ManipulateCounter(VapeController.VapeType.MixedBerry, 0);

@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 26
-  shootFrequency: 6
+  shootFrequency: 5
   shootDurations: 2
   turnSpeed: 30
   vapeTransform: {fileID: 484978297224576329}

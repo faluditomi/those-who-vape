@@ -118,7 +118,7 @@ MonoBehaviour:
   - name: enemy_spawn
     source: {fileID: 0}
     clip: {fileID: 8300000, guid: af66b2e82338a894eac96319ce5460fd, type: 3}
-    volume: 1
+    volume: 0
     pitch: 1
     isLooping: 0
     isPlaying: 0
@@ -134,7 +134,7 @@ MonoBehaviour:
   - name: sltmchn_lever_pull_1
     source: {fileID: 0}
     clip: {fileID: 8300000, guid: 222364260468a084fb2b85f72b5e324e, type: 3}
-    volume: 1
+    volume: 0.3
     pitch: 1
     isLooping: 0
     isPlaying: 0
@@ -142,7 +142,7 @@ MonoBehaviour:
   - name: sltmchn_lever_pull_2
     source: {fileID: 0}
     clip: {fileID: 8300000, guid: 141afe9be41a1c441b6b1ee9a5f35d43, type: 3}
-    volume: 1
+    volume: 0
     pitch: 1
     isLooping: 0
     isPlaying: 0
@@ -150,7 +150,7 @@ MonoBehaviour:
   - name: sltmchn_lever_pull_3
     source: {fileID: 0}
     clip: {fileID: 8300000, guid: 1adb6172a75abf24b8dd5dde92657908, type: 3}
-    volume: 1
+    volume: 0
     pitch: 1
     isLooping: 0
     isPlaying: 0
@@ -158,7 +158,7 @@ MonoBehaviour:
   - name: sltmchn_rolling
     source: {fileID: 0}
     clip: {fileID: 8300000, guid: 51a27cf10dd4da848be64584105ea87d, type: 3}
-    volume: 1
+    volume: 0.12
     pitch: 1
     isLooping: 1
     isPlaying: 0
@@ -166,7 +166,7 @@ MonoBehaviour:
   - name: sltmchn_rolling_also
     source: {fileID: 0}
     clip: {fileID: 8300000, guid: b3698ad443e14364f9690f892e7944d5, type: 3}
-    volume: 1
+    volume: 0.15
     pitch: 1
     isLooping: 1
     isPlaying: 0
@@ -174,8 +174,16 @@ MonoBehaviour:
   - name: sltmchn_success
     source: {fileID: 0}
     clip: {fileID: 8300000, guid: 36557cb234e8fbe44941761382fb6c89, type: 3}
-    volume: 1
-    pitch: 1
+    volume: 0.12
+    pitch: 1.1
+    isLooping: 0
+    isPlaying: 0
+    playOnAwake: 0
+  - name: sltmchn_fail
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 36557cb234e8fbe44941761382fb6c89, type: 3}
+    volume: 0.2
+    pitch: 0.75
     isLooping: 0
     isPlaying: 0
     playOnAwake: 0
@@ -214,7 +222,7 @@ MonoBehaviour:
   - name: tower_remove
     source: {fileID: 0}
     clip: {fileID: 8300000, guid: 96e6e4563b2d6de409618c02eafa86e5, type: 3}
-    volume: 1
+    volume: 0.8
     pitch: 1
     isLooping: 0
     isPlaying: 0
@@ -222,8 +230,9 @@ MonoBehaviour:
   - name: tower_place
     source: {fileID: 0}
     clip: {fileID: 8300000, guid: 92ed2edee60f00c43adf11fd44e79d72, type: 3}
-    volume: 1
+    volume: 0.8
     pitch: 1
     isLooping: 0
     isPlaying: 0
     playOnAwake: 0
+  canPlayNewSounds: 0
