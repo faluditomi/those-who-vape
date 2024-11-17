@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5145550638846075145}
   - component: {fileID: 6181190701757148076}
   - component: {fileID: 3495361241915518385}
+  - component: {fileID: 5376813712411387183}
+  - component: {fileID: 5381811541281735896}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -72,5 +74,156 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 4954230213554727433, guid: d00afdb2aaf685b429e2fb14e813fbab, type: 3}
   secondsToDifficultyIncrease: 30
-  spawnRateIncreasePercentage: 10
+  initialSecondsBetweenSpawn: 2
+  spawnRateIncreasePercentage: 20
   spawnRateRandomRange: 1
+--- !u!114 &5376813712411387183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3836995136625433492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2a1b336e5498f1439e67a1f155f1e28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 4954230213554727433, guid: d00afdb2aaf685b429e2fb14e813fbab, type: 3}
+  secondsToDifficultyIncrease: 30
+  initialSecondsBetweenSpawn: 2
+  spawnRateIncreasePercentage: 20
+  spawnRateRandomRange: 1
+--- !u!114 &5381811541281735896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3836995136625433492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 037532ccb4538bf42980701b16f41526, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: enemy_death
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: d0c96baca18b4a14f9c9a6471cee6bc4, type: 3}
+    volume: 1
+    pitch: 0
+    isLooping: 0
+    isPlaying: 0
+    playOnAwake: 0
+  - name: enemy_spawn
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: af66b2e82338a894eac96319ce5460fd, type: 3}
+    volume: 1
+    pitch: 0
+    isLooping: 0
+    isPlaying: 0
+    playOnAwake: 0
+  - name: music
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 94f31cc38ef092b479b34788e3fcb287, type: 3}
+    volume: 1
+    pitch: 0
+    isLooping: 1
+    isPlaying: 0
+    playOnAwake: 1
+  - name: sltmchn_lever_pull_1
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 222364260468a084fb2b85f72b5e324e, type: 3}
+    volume: 1
+    pitch: 0
+    isLooping: 0
+    isPlaying: 0
+    playOnAwake: 0
+  - name: sltmchn_lever_pull_2
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 141afe9be41a1c441b6b1ee9a5f35d43, type: 3}
+    volume: 1
+    pitch: 0
+    isLooping: 0
+    isPlaying: 0
+    playOnAwake: 0
+  - name: sltmchn_lever_pull_3
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 1adb6172a75abf24b8dd5dde92657908, type: 3}
+    volume: 1
+    pitch: 0
+    isLooping: 0
+    isPlaying: 0
+    playOnAwake: 0
+  - name: sltmchn_rolling
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 51a27cf10dd4da848be64584105ea87d, type: 3}
+    volume: 1
+    pitch: 0
+    isLooping: 1
+    isPlaying: 0
+    playOnAwake: 0
+  - name: sltmchn_rolling_also
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: b3698ad443e14364f9690f892e7944d5, type: 3}
+    volume: 1
+    pitch: 0
+    isLooping: 1
+    isPlaying: 0
+    playOnAwake: 0
+  - name: sltmchn_success
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 36557cb234e8fbe44941761382fb6c89, type: 3}
+    volume: 1
+    pitch: 0
+    isLooping: 0
+    isPlaying: 0
+    playOnAwake: 0
+  - name: tower_shoot_1
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: f58a030d68098054f9353b5732a02205, type: 3}
+    volume: 1
+    pitch: 0
+    isLooping: 0
+    isPlaying: 0
+    playOnAwake: 0
+  - name: tower_shoot_2
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 1d38aac0d11b3d74f9a2108676251914, type: 3}
+    volume: 1
+    pitch: 0
+    isLooping: 0
+    isPlaying: 0
+    playOnAwake: 0
+  - name: tower_shoot_3
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: f29be18da9087394c908405d01a9e5bf, type: 3}
+    volume: 1
+    pitch: 0
+    isLooping: 0
+    isPlaying: 0
+    playOnAwake: 0
+  - name: mixed_berry_fire
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: f3c1396307337994c9a3f94cb38cc13f, type: 3}
+    volume: 1
+    pitch: 0
+    isLooping: 0
+    isPlaying: 0
+    playOnAwake: 0
+  - name: tower_remove
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 96e6e4563b2d6de409618c02eafa86e5, type: 3}
+    volume: 1
+    pitch: 0
+    isLooping: 0
+    isPlaying: 0
+    playOnAwake: 0
+  - name: tower_place
+    source: {fileID: 0}
+    clip: {fileID: 8300000, guid: 92ed2edee60f00c43adf11fd44e79d72, type: 3}
+    volume: 1
+    pitch: 0
+    isLooping: 0
+    isPlaying: 0
+    playOnAwake: 0

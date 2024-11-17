@@ -7,11 +7,15 @@ public class EnemyController : MonoBehaviour
     private GameManager gameManager;
     private List<Transform> waypoints = new List<Transform>();
     private bool isMassiveVapeReached = false;
+    private AudioSource audioSource;
+    private AudioManager audioManager;
     public float speed;
     public int health = 200;
 
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
+        audioManager = FindAnyObjectByType<AudioManager>();
         gameManager = GameObject.FindAnyObjectByType<GameManager>();
         Transform waypointsContainer;
 
@@ -30,6 +34,11 @@ public class EnemyController : MonoBehaviour
         }
         
         transform.position = waypoints[0].position;
+    }
+
+    private void Start()
+    {
+        audioManager.Play("enemy_spawn");
     }
 
     private void FixedUpdate()

@@ -47,6 +47,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnOffset: {x: 0, y: 1.8, z: 0}
+  hoverMaterial: {fileID: 2100000, guid: dfa35b1ccd5093e4e8acb6343297715f, type: 2}
+  ogMaterials:
+  - {fileID: -876546973899608171, guid: 7a0121203e792214eabc52b1d668afb3, type: 3}
+  - {fileID: -6478536213147159724, guid: 7a0121203e792214eabc52b1d668afb3, type: 3}
+  - {fileID: -3846018093981099296, guid: 7a0121203e792214eabc52b1d668afb3, type: 3}
+  - {fileID: -3846018093981099296, guid: 7a0121203e792214eabc52b1d668afb3, type: 3}
 --- !u!135 &2000126842465292123
 SphereCollider:
   m_ObjectHideFlags: 0

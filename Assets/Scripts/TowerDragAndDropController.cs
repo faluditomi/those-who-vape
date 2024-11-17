@@ -10,6 +10,7 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
     private VapeController.VapeType currentVapeType;
     private static InputActions inputActions;
     private bool isRemoveHeld = false;
+    private VapePlacementPointController lastHoveredVapeZone = null;
     public GameObject vapePrefab;
     private GameObject rangeIndicator;
     public Material rangeIndicatorMaterial;
@@ -59,9 +60,36 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
             Vector3 newPosition = new Vector3(hit.point.x, 5, hit.point.z);
             draggingObject.transform.position = newPosition;
 
-            if (rangeIndicator != null)
+            if(rangeIndicator != null)
             {
-                rangeIndicator.transform.position = new Vector3(newPosition.x, 0.1f, newPosition.z); // Slightly above ground
+                rangeIndicator.transform.position = new Vector3(newPosition.x, 0.1f, newPosition.z);
+            }
+        }
+
+        if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit2))
+        {
+            if(hit2.collider.CompareTag("VapeZone"))
+            {
+                VapePlacementPointController vapePlacementPointController = hit2.collider.gameObject.GetComponent<VapePlacementPointController>();
+                if(lastHoveredVapeZone != null && lastHoveredVapeZone != vapePlacementPointController)
+                {
+                    lastHoveredVapeZone.Unselect();
+                    lastHoveredVapeZone = null;
+                }
+
+                if(lastHoveredVapeZone == null && !vapePlacementPointController.IsOccupied())
+                {
+                    vapePlacementPointController.Select();
+                    lastHoveredVapeZone = vapePlacementPointController;
+                }
+            }
+            else
+            {
+                if (lastHoveredVapeZone != null)
+                {
+                    lastHoveredVapeZone.Unselect();
+                    lastHoveredVapeZone = null;
+                }
             }
         }
     }
