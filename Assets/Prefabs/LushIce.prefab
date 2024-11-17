@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05e053c26e731d74b808d5a7e0fd5314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 25
+  range: 26
   shootFrequency: 6
   shootDurations: 2
   turnSpeed: 30

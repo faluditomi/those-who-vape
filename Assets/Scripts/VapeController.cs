@@ -108,7 +108,7 @@ public class VapeController : MonoBehaviour
         }
     }
 
-    protected void OnDrawGizmosSelected()
+    private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, range);
