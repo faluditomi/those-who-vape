@@ -3,9 +3,9 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     private UIController uiController;
-    private int numberOfMixedBerry = 3;
-    private int numberOfLushIce = 3;
-    private int numberOfHeisenberg = 3;
+    private int numberOfMixedBerry = 0;
+    private int numberOfLushIce = 0;
+    private int numberOfHeisenberg = 0;
 
     private void Awake()
     {
@@ -14,9 +14,9 @@ public class InventoryManager : MonoBehaviour
 
     public void Restart()
     {
-        numberOfMixedBerry = 3;
-        numberOfLushIce = 3;
-        numberOfHeisenberg = 3;
+        numberOfMixedBerry = 0;
+        numberOfLushIce = 0;
+        numberOfHeisenberg = 0;
     }
 
     public bool ManipulateInventory(VapeController.VapeType vapeType, int quantity)

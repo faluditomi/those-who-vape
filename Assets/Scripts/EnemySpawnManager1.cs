@@ -1,12 +1,13 @@
 using System.Collections;
 using UnityEngine;
 
-public class EnemySpawnManager : MonoBehaviour
+public class EnemySpawnManager1 : MonoBehaviour
 {
     private Transform enemyContainer;
     private Coroutine spawnCoroutine;
     private Coroutine spawnRateIncreaseCoroutine;
     private float currentSecondsBetweenSpawn;
+    private Vector3 spawnPoint;
     public GameObject enemyPrefab;
     public int secondsToDifficultyIncrease = 30;
     public float initialSecondsBetweenSpawn = 5;
@@ -15,8 +16,9 @@ public class EnemySpawnManager : MonoBehaviour
 
     private void Awake()
     {
-        enemyContainer = GameObject.Find("Enemy Container").transform;
+        enemyContainer = GameObject.Find("Enemy Container 1").transform;
         currentSecondsBetweenSpawn = initialSecondsBetweenSpawn;
+        spawnPoint = GameObject.Find("Bence Spawn Point 1").transform.position;
     }
 
     public void StartSpawning()
@@ -55,7 +57,7 @@ public class EnemySpawnManager : MonoBehaviour
     private IEnumerator SpawnBehaviour()
     {
         yield return new WaitForSecondsRealtime(currentSecondsBetweenSpawn + Random.Range(-spawnRateRandomRange, spawnRateRandomRange));
-        Instantiate(enemyPrefab, enemyContainer);
+        Instantiate(enemyPrefab, spawnPoint, Quaternion.identity, enemyContainer);
         spawnCoroutine = StartCoroutine(SpawnBehaviour());
     }
 

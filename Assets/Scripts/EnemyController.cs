@@ -13,8 +13,18 @@ public class EnemyController : MonoBehaviour
     private void Awake()
     {
         gameManager = GameObject.FindAnyObjectByType<GameManager>();
+        Transform waypointsContainer;
 
-        foreach(Transform waypoint in GameObject.Find("Waypoints").transform)
+        if(transform.parent.name == "Enemy Container 1")
+        {
+            waypointsContainer = GameObject.Find("Waypoints 1").transform;
+        }
+        else
+        {
+            waypointsContainer = GameObject.Find("Waypoints 2").transform;
+        }
+
+        foreach(Transform waypoint in waypointsContainer)
         {
             waypoints.Add(waypoint);
         }
