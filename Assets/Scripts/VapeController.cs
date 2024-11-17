@@ -22,15 +22,23 @@ public class VapeController : MonoBehaviour
     public float turnSpeed = 100f;
     public Transform vapeTransform;
     public VapeType vapeType;
+    protected AudioManager audioManager;
+    protected AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+        audioManager = FindAnyObjectByType<AudioManager>();
+    }
 
     protected void FixedUpdate()
     {
-        if(currentTarget == null || Vector3.Distance(transform.position, currentTarget.transform.position) > range)
+        if(currentTarget == null || !currentTarget.gameObject.activeInHierarchy || Vector3.Distance(transform.position, currentTarget.transform.position) > range)
         {
             currentTarget = GetClosestEnemy();
         }
 
-        if(currentTarget != null)
+        if(currentTarget != null && currentTarget.gameObject.activeInHierarchy)
         {
             Shoot();
         }

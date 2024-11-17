@@ -42,6 +42,7 @@ public class LushIceController : VapeController
 
     protected override IEnumerator ShootBehaviour()
     {
+        audioManager.Play("mixed_berry_fire", audioSource);
         GameObject projectile = Instantiate(vapeBombPrefab, firePoint.position, Quaternion.identity);
         StartCoroutine(ArcMovement(projectile, currentTarget.transform.position));
         yield return new WaitForSecondsRealtime(shootFrequency);

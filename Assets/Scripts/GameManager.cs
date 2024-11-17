@@ -8,9 +8,11 @@ public class GameManager : MonoBehaviour
     private InventoryManager inventoryManager;
     private UIController uiController;
     private SlotMachineController slotMachineController;
+    private AudioManager audioManager;
 
     private void Awake()
     {
+        audioManager = FindAnyObjectByType<AudioManager>();
         enemySpawnManager1 = GameObject.FindAnyObjectByType<EnemySpawnManager1>();
         enemySpawnManager2 = GameObject.FindAnyObjectByType<EnemySpawnManager2>();
         inventoryManager = GameObject.FindAnyObjectByType<InventoryManager>();
@@ -28,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
+        audioManager.canPlayNewSounds = false;
         isGameOver = false;
         enemySpawnManager1.Restart();
         enemySpawnManager2.Restart();
@@ -40,6 +43,8 @@ public class GameManager : MonoBehaviour
         {
             vapePoint.GetComponent<VapePlacementPointController>().RemoveVape();
         }
+        
+        audioManager.canPlayNewSounds = true;
     }
 
     public void Quit()

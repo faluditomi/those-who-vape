@@ -12,7 +12,7 @@ public class SlotMachineController : MonoBehaviour
     private Image rightImage;
     private TextMeshProUGUI prizeText;
     private Coroutine bustCoroutine;
-
+    private AudioManager audioManager;
     private Coroutine rollCoroutine;
     private int currentChanceForMixedBerry;
     private int currentChanceForLushIce;
@@ -24,10 +24,11 @@ public class SlotMachineController : MonoBehaviour
     public int maxChanceForLushIce = 75;
     public int maxChanceForHeisenberg = 50;
     public int incrementForBetterChance = 2;
-    public float rollDuration = 3;
+    public float rollDuration = 2;
 
     private void Awake()
     {
+        audioManager = FindAnyObjectByType<AudioManager>();
         Transform slotMachineUI = GameObject.Find("Slot Machine UI").transform;
         leftImage = slotMachineUI.Find("Left Image").GetComponent<Image>();
         middleImage = slotMachineUI.Find("Middle Image").GetComponent<Image>();
@@ -48,6 +49,8 @@ public class SlotMachineController : MonoBehaviour
         currentChanceForLushIce = initialChanceForLushIce;
         currentChanceForHeisenberg = initialChanceForHeisenberg;
         prizeText.SetText("WIN BIG NOW");
+        audioManager.Stop("sltmchn_rolling");
+        audioManager.Stop("sltmchn_rolling_also");
     }
 
     public void Play()
@@ -63,6 +66,8 @@ public class SlotMachineController : MonoBehaviour
             bustCoroutine = null;
             Reset();
         }
+        
+        audioManager.Play("sltmchn_lever_pull_1");
 
         rollCoroutine = StartCoroutine(RollBehaviour());
     }
@@ -74,6 +79,8 @@ public class SlotMachineController : MonoBehaviour
         {
             return;
         }
+        
+        audioManager.Play("sltmchn_lever_pull_1");
 
         rollCoroutine = StartCoroutine(DoubleBehaviour());
     }
@@ -112,9 +119,14 @@ public class SlotMachineController : MonoBehaviour
 
     private IEnumerator RollBehaviour()
     {
+        yield return new WaitForSecondsRealtime(0.3f);
+    
+        audioManager.Play("sltmchn_rolling");
+        audioManager.Play("sltmchn_rolling_also");
+
         currentPrize = null;
 
-        yield return new WaitForSecondsRealtime(rollDuration);
+        yield return new WaitForSecondsRealtime(rollDuration - 0.3f);
 
         int roll = Random.Range(1, 100);
         
@@ -137,14 +149,19 @@ public class SlotMachineController : MonoBehaviour
             {
                 currentPrize.Double();
             }
+            audioManager.Play("sltmchn_success");
         }
         else
         {
             bustCoroutine = StartCoroutine(BustBehaviour());
         }
 
+        audioManager.Stop("sltmchn_rolling");
+        audioManager.Stop("sltmchn_rolling_also");
+
         UpdatePrizeTextUponWin();
         IncreaseChances();
+
         rollCoroutine = null;
     }
 
@@ -164,12 +181,18 @@ public class SlotMachineController : MonoBehaviour
 
     private IEnumerator DoubleBehaviour()
     {
-        yield return new WaitForSecondsRealtime(rollDuration);
+        yield return new WaitForSecondsRealtime(0.3f);
+    
+        audioManager.Play("sltmchn_rolling");
+        audioManager.Play("sltmchn_rolling_also");
+
+        yield return new WaitForSecondsRealtime(rollDuration - 0.3f);
 
         if(RollForDouble())
         {
             currentPrize.Double();
             UpdatePrizeTextUponWin();
+            audioManager.Play("sltmchn_success");
             rollCoroutine = null;
         }
         else
@@ -177,11 +200,15 @@ public class SlotMachineController : MonoBehaviour
             bustCoroutine = StartCoroutine(BustBehaviour());
         }
 
+        audioManager.Stop("sltmchn_rolling");
+        audioManager.Stop("sltmchn_rolling_also");
+
         rollCoroutine = null;
     }
 
     private IEnumerator BustBehaviour() 
     {
+        audioManager.Play("sltmchn_fail");
         prizeText.SetText("BETTER LUCK NEXT TIME");
         yield return new WaitForSecondsRealtime(3);
         Reset();

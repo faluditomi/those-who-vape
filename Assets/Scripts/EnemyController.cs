@@ -4,11 +4,11 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     private int currentWaypointIndex = 1;
+    private AudioManager audioManager;
     private GameManager gameManager;
+    private AudioSource audioSource;
     private List<Transform> waypoints = new List<Transform>();
     private bool isMassiveVapeReached = false;
-    private AudioSource audioSource;
-    private AudioManager audioManager;
     public float speed;
     public int health = 200;
 
@@ -38,7 +38,7 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        audioManager.Play("enemy_spawn");
+        audioManager.Play("enemy_spawn", audioSource);
     }
 
     private void FixedUpdate()
@@ -75,7 +75,9 @@ public class EnemyController : MonoBehaviour
 
         if(health <= 0)
         {
-            Destroy(gameObject);
+            audioManager.Play("enemy_death", audioSource);
+            gameObject.SetActive(false);
+            Destroy(gameObject, 2f);
         }
     }
 }

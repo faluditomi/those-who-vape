@@ -5,6 +5,7 @@ public class AudioManager : MonoBehaviour
 {
     #region Attributes
     public Sound[] sounds;
+    public bool canPlayNewSounds;
     public static AudioManager instance;
     #endregion
 
@@ -47,6 +48,11 @@ public class AudioManager : MonoBehaviour
     #region Normal Methods
     public void Play(string name, AudioSource source = null)
     {
+        if(!canPlayNewSounds)
+        {
+            return;
+        }
+
         Sound s = Array.Find(sounds, sound => sound.name.Equals(name));
 
         if(s == null)

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 146779415580093684}
   - component: {fileID: 303845766535992338}
   - component: {fileID: 3286033610286617955}
-  - component: {fileID: 4813456011813152790}
+  - component: {fileID: 5441146966795847527}
   m_Layer: 0
   m_Name: Bence
   m_TagString: Enemy
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 2
   health: 250
---- !u!82 &4813456011813152790
+--- !u!82 &5441146966795847527
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
