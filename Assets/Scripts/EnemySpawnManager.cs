@@ -1,9 +1,8 @@
 using System.Collections;
 using UnityEngine;
 
-public class WaveManager : MonoBehaviour
+public class EnemySpawnManager : MonoBehaviour
 {
-    private GameManager gameManager;
     private Transform enemyContainer;
     private Coroutine spawnCoroutine;
     private Coroutine spawnRateIncreaseCoroutine;
@@ -16,14 +15,8 @@ public class WaveManager : MonoBehaviour
 
     private void Awake()
     {
-        gameManager = GameObject.FindAnyObjectByType<GameManager>();
         enemyContainer = GameObject.Find("Enemy Container").transform;
         currentSecondsBetweenSpawn = initialSecondsBetweenSpawn;
-    }
-
-    private void Start()
-    {
-        StartSpawning();
     }
 
     public void StartSpawning()
@@ -47,6 +40,16 @@ public class WaveManager : MonoBehaviour
             StopCoroutine(spawnRateIncreaseCoroutine);
             spawnRateIncreaseCoroutine = null;
         }
+    }
+
+    public void Restart()
+    {
+        foreach(Transform enemy in enemyContainer)
+        {
+            Destroy(enemy.gameObject);
+        }
+
+        StartSpawning();
     }
 
     private IEnumerator SpawnBehaviour()

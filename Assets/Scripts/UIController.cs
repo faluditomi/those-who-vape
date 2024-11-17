@@ -7,6 +7,7 @@ public class UIController : MonoBehaviour
     private TextMeshProUGUI lushIceCounter;
     private TextMeshProUGUI heisenbergCounter;
     private InventoryManager inventoryManager;
+    private GameObject pauseState;
 
     private void Awake()
     {
@@ -17,6 +18,19 @@ public class UIController : MonoBehaviour
         lushIceCounter.text = "x " + inventoryManager.GetNumberOfType(VapeController.VapeType.LushIce);
         heisenbergCounter = transform.Find("HeisenbergUI").Find("HeisenbergCounter").GetComponent<TextMeshProUGUI>();
         heisenbergCounter.text = "x " + inventoryManager.GetNumberOfType(VapeController.VapeType.Heisenberg);
+        pauseState = GameObject.Find("Pause State");
+    }
+
+    public void SetPauseState(bool state)
+    {
+        pauseState.SetActive(state);
+    }
+
+    public void Restart()
+    {
+        ManipulateCounter(VapeController.VapeType.MixedBerry, 0);
+        ManipulateCounter(VapeController.VapeType.LushIce, 0);
+        ManipulateCounter(VapeController.VapeType.Heisenberg, 0);
     }
 
     public void ManipulateCounter(VapeController.VapeType vapeType, int quantity)

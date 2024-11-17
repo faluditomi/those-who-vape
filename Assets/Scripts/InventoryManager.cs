@@ -12,6 +12,13 @@ public class InventoryManager : MonoBehaviour
         uiController = GameObject.FindAnyObjectByType<UIController>();
     }
 
+    public void Restart()
+    {
+        numberOfMixedBerry = 0;
+        numberOfLushIce = 0;
+        numberOfHeisenberg = 0;
+    }
+
     public bool ManipulateInventory(VapeController.VapeType vapeType, int quantity)
     {
         if(GetNumberOfType(vapeType) + quantity < 0)
