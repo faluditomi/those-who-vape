@@ -33,6 +33,7 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
         inputActions.Gameplay.RemoveTower.started += HoldRemoveButton;
         inputActions.Gameplay.RemoveTower.canceled += HoldRemoveButton;
         inputActions.Gameplay.Click.performed += RemoveVapeIfButtonHeld;
+        inputActions.Gameplay.RightClick.performed += RemoveVape;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -141,6 +142,20 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
         else if(context.action.phase is InputActionPhase.Canceled)
         {
             isRemoveHeld = false;
+        }
+    }
+
+    private void RemoveVape(InputAction.CallbackContext context)
+    {
+        if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit)
+        && hit.collider.CompareTag("VapeZone"))
+        {
+            VapePlacementPointController vapePlacementPointController = hit.collider.gameObject.GetComponent<VapePlacementPointController>();
+            if(vapePlacementPointController.IsOccupied())
+            {
+                vapePlacementPointController.RemoveVape();
+            }
+            
         }
     }
 
