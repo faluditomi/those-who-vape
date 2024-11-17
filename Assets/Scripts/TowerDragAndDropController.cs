@@ -11,6 +11,8 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
     private static InputActions inputActions;
     private bool isRemoveHeld = false;
     public GameObject vapePrefab;
+    private GameObject rangeIndicator;
+    public Material rangeIndicatorMaterial;
 
     private void Awake()
     {
@@ -38,6 +40,8 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
         {
             Vector3 spawnPoint = new Vector3(transform.position.x, 5, transform.position.z);
             draggingObject = Instantiate(vapePrefab, spawnPoint, Quaternion.identity);
+            float range = draggingObject.GetComponent<VapeController>().range;
+            rangeIndicator = CreateRangeIndicator(range);
         }
     }
 
@@ -54,6 +58,11 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
         {
             Vector3 newPosition = new Vector3(hit.point.x, 5, hit.point.z);
             draggingObject.transform.position = newPosition;
+
+            if (rangeIndicator != null)
+            {
+                rangeIndicator.transform.position = new Vector3(newPosition.x, 0.1f, newPosition.z); // Slightly above ground
+            }
         }
     }
 
@@ -73,12 +82,25 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
                 {
                     vapePlacementPointController.PlaceVape(draggingObject);
                     draggingObject = null;
+
+                    if (rangeIndicator != null)
+                    {
+                        Destroy(rangeIndicator);
+                        rangeIndicator = null;
+                    }
+
                     return;
                 }
             }
 
             inventoryManager.ManipulateInventory(currentVapeType, 1);
             Destroy(draggingObject);
+
+            if (rangeIndicator != null)
+            {
+                Destroy(rangeIndicator);
+                rangeIndicator = null;
+            }
         }
     }
 
@@ -106,5 +128,15 @@ public class TowerDragAndDropController : MonoBehaviour, IBeginDragHandler, IDra
             }
             
         }
+    }
+
+    private GameObject CreateRangeIndicator(float range)
+    {
+        GameObject indicator = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+        Destroy(indicator.GetComponent<Collider>());
+        indicator.transform.localScale = new Vector3(range * 2, 0.01f, range * 2);
+        indicator.GetComponent<Renderer>().material = rangeIndicatorMaterial;
+        indicator.transform.position = new Vector3(transform.position.x, 0.1f, transform.position.z); 
+        return indicator;
     }
 }

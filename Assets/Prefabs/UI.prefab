@@ -473,6 +473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vapePrefab: {fileID: 2414513518581113529, guid: 20183dfd2548b3b43888005207fd996d, type: 3}
+  rangeIndicatorMaterial: {fileID: 2100000, guid: 7de49cea280522a49b8867b3ac0276e0, type: 2}
 --- !u!1 &3908953049730675999
 GameObject:
   m_ObjectHideFlags: 0
@@ -1330,6 +1331,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vapePrefab: {fileID: 3479122320060704144, guid: 323c9845a8c7984489531077dfd13cb3, type: 3}
+  rangeIndicatorMaterial: {fileID: 2100000, guid: 7de49cea280522a49b8867b3ac0276e0, type: 2}
 --- !u!1 &7293507357510385622
 GameObject:
   m_ObjectHideFlags: 0
@@ -1381,6 +1383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vapePrefab: {fileID: 8150433452594171637, guid: 6145e0f2dbb299a41883c5733f37b99d, type: 3}
+  rangeIndicatorMaterial: {fileID: 2100000, guid: 7de49cea280522a49b8867b3ac0276e0, type: 2}
 --- !u!1 &8243570479313756520
 GameObject:
   m_ObjectHideFlags: 0
