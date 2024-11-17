@@ -3,9 +3,9 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     private UIController uiController;
-    private int numberOfMixedBerry = 3;
-    private int numberOfLushIce = 3;
-    private int numberOfHeisenberg = 3;
+    private int numberOfMixedBerry = 0;
+    private int numberOfLushIce = 0;
+    private int numberOfHeisenberg = 0;
 
     private void Awake()
     {
