@@ -5554,6 +5554,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6939815474416059264, guid: 4d2c52fbc3279b2479fa3da2f0d010e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6939815474416059264, guid: 4d2c52fbc3279b2479fa3da2f0d010e3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1662174473}
@@ -5567,8 +5571,8 @@ PrefabInstance:
         starts the roll\n\tCASH OUT -> transfers current prize into your inventory
         \n\tDOUBLE -> 25% chance you double your prize... 75% that you lose it all\n\nDeploy
         vapes by dragging them from your inventory (bottom left) to empty vape stations\n\nRemove
-        alredy deployed vapes by right clicking (or ctrl + left click)\n\nPress R
-        to restart"
+        alredy deployed vapes by right clicking (or ctrl + left click)\n\nR to restart\nEsc
+        to pause"
       objectReference: {fileID: 0}
     - target: {fileID: 8519259743143283303, guid: 4d2c52fbc3279b2479fa3da2f0d010e3, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

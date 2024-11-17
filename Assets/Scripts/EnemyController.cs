@@ -51,6 +51,7 @@ public class EnemyController : MonoBehaviour
         Transform targetWaypoint = waypoints[currentWaypointIndex];
         Vector3 direction = (targetWaypoint.position - transform.position).normalized;
         transform.position += direction * speed * Time.fixedDeltaTime;
+        transform.forward = direction;
 
         if(Vector3.Distance(transform.position, targetWaypoint.position) < 0.1f)
         {

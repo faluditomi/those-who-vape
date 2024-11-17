@@ -98,6 +98,7 @@ public class SlotMachineController : MonoBehaviour
         
         audioManager.Play("sltmchn_lever_pull_1");
 
+        imageRandomiserCoroutine = StartCoroutine(RandomizeUIImagesCoroutine());
         rollCoroutine = StartCoroutine(DoubleBehaviour());
     }
 
@@ -260,17 +261,21 @@ public class SlotMachineController : MonoBehaviour
         if(RollForDouble())
         {
             currentPrize.Double();
-            UpdatePrizeTextUponWin();
             audioManager.Play("sltmchn_success");
             rollCoroutine = null;
         }
         else
         {
+            currentPrize = null;
             bustCoroutine = StartCoroutine(BustBehaviour());
         }
+        
+        UpdatePrizeTextUponWin();
 
         audioManager.Stop("sltmchn_rolling");
         audioManager.Stop("sltmchn_rolling_also");
+        
+        StopCoroutine(imageRandomiserCoroutine);
 
         rollCoroutine = null;
     }
