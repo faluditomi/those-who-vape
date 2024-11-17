@@ -12,7 +12,7 @@ public class VapeController : MonoBehaviour
     }
 
     private GameObject[] enemies;
-    private EnemyController currentTarget;
+    protected EnemyController currentTarget;
     private Coroutine scanCoroutine;
     protected Coroutine shootCoroutine;
     private int scanSpeed = 30;
