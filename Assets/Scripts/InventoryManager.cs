@@ -14,9 +14,9 @@ public class InventoryManager : MonoBehaviour
 
     public void Restart()
     {
-        numberOfMixedBerry = 99;
-        numberOfLushIce = 99;
-        numberOfHeisenberg = 99;
+        numberOfMixedBerry = 0;
+        numberOfLushIce = 0;
+        numberOfHeisenberg = 0;
     }
 
     public bool ManipulateInventory(VapeController.VapeType vapeType, int quantity)
