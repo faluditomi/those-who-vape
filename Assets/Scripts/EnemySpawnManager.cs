@@ -9,7 +9,7 @@ public class EnemySpawnManager : MonoBehaviour
     private float currentSecondsBetweenSpawn;
     public GameObject enemyPrefab;
     public int secondsToDifficultyIncrease = 30;
-    public int initialSecondsBetweenSpawn = 5;
+    public float initialSecondsBetweenSpawn = 5;
     public float spawnRateIncreasePercentage = 10;
     public float spawnRateRandomRange = 1;
 
